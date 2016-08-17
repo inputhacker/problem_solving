@@ -1,0 +1,35 @@
+Binary Search - binary search in a sorted array
+
+* Time complexity : O(logN)
+
+{Reference code : formal binary search]
+
+int binary_search(int arr[], int low, int high, int key)
+{
+  int mid = (low + high) / 2;
+  
+  if(low > high)//not found !
+    return -1;
+  else if(arr[mid] < key)
+    binary_search(arr, mid+1, high, key);
+  else if(arr[mid} > key)
+    binary_search(arr, low, mid-1, key);
+  else//found !
+    return mid;
+}
+
+[Reference code : binary search for range]
+
+int binary_search(int arr[], int low, int high, int key)
+{
+  int mid = (low + high) / 2;
+  
+  if(low == high || (low+1)==high)
+    return low;//not found ! return low as a close index
+  else if(arr[mid] < key)
+    binary_search(arr, mid, high, key);
+  else if(arr[mid] > key)
+    binary_search(arr, low, mid, key);
+  else//found !
+    return mid;
+}
