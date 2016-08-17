@@ -1,0 +1,132 @@
+BFS - breadth first search
+
+* Usually a Q is utilized as a primary data structure.
+* Useful to find out the shortest path in graph problems.
+* Examples> maze
+
+[Reference code]
+
+#include <stdio.h>
+const int MAX_ROW = 101;
+const int MAX_COL = 101;
+
+struct pos
+{
+	int row;
+	int col;
+	int cnt;
+};
+
+int map[MAX_ROW][MAX_COL];
+int visited[MAX_ROW][MAX_COL];
+int ROW;
+int COL;
+
+struct pos Q[MAX_ROW*MAX_COL];
+int rear;
+int front;
+
+int dr[] = { -1, 1, 0, 0};//up, down, left, right direction for row
+int dc[] = { 0, 0, -1, 1};//up, down, left, right direction for col
+
+void enQ(struct pos item)
+{
+	Q[++rear] = item;
+}
+
+struct pos deQ()
+{
+	return Q[++front];
+}
+
+int is_emptyQ()
+{
+	return (rear == front);
+}
+
+int is_fullQ()
+{
+	return (rear == ((MAX_ROW*MAX_COL)-1));
+}
+
+int BFS(struct pos start)
+{
+	visited[start.row][start.col] = 1;
+	enQ(start);
+
+	while(!is_empty())
+	{
+		struct pos item = deQ();
+
+		if(item.row = goal.row && item.col == goal.col)
+		{
+			return item.cnt;//success
+		}
+
+		item.cnt++;
+		for(int i=0;i<4;i++)
+		{
+			int nr = item.row + dr[i];
+			int nc = item.col + dc[i];
+
+			if(nr < 1 || nr > ROW || nc < 1 || nc > COL) continue;
+			if(visited[nr][nc]) continue;
+
+			struct pos tmp;
+			tmp.row = nr;
+			tmp.col = nc;
+			tmp.cnt = item.cnt;
+			visited[nr][nc] = 1;
+			enQ(tmp);
+		}
+	}
+
+	return 0;//failed
+}
+
+int main()
+{
+	int TC;
+	scanf("%d", &TC);
+	for(int tc=1;tc<=TC;tc++)
+	{
+		//initialization
+		Answer = 0;
+
+		//input
+		scanf("%d %d", &ROW, &COL);
+		for(int r=0;r<ROW;r++)
+		{
+			for(int c=0;c<COL;c++)
+			{
+				scanf("%d", &map[r][c]);
+				visited[r][c] = 0;
+			}
+		}
+
+#if 0
+		//debug information
+		printf("ROW=%d, COL=%d\n", ROW, COL);
+		for(int r=0;r<ROW;r++)
+		{
+			for(int c=0;c<COL;c++)
+			{
+				printf("%d ", map[r][c]);
+			}
+			printf("\n");
+		}
+
+#endif
+
+		//get an answer
+		struct pos start;
+		start.row = start.col = 1;
+		start.cnt = 1;
+		Answer = BFS(start);
+
+		//print answer
+		printf("#%d %d\n", tc, Answer);
+	}
+
+	return 0;
+}
