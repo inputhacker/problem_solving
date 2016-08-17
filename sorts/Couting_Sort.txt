@@ -1,0 +1,67 @@
+Counting sort - counting sort algorithm which sorts data with each frequency of each number
+
+* Time complexity - O(N+K) : K is the range of the number
+
+[Reference code]
+
+#include <stdio.h>
+#define MAX_N 51
+
+int arr[10] = { 3, 5, 7, 2, 1, 9, 5, 3, 2, 8 };
+const int MAX_RANGE = 9;
+
+void counting_sort(int arr[], int n)
+{
+  int cnt[MAX_N] = { 0, };
+  int tmp[MAX_N];
+  
+  //count the frequency of each number
+  for(int i=0;i<n;i++)
+    cnt[arr[i]]++;
+
+  //accumulate the frequency of each number
+  for(int i=1;i<=MAX_RANGE;i++)
+    cnt[i] = cnt[i-1] + cnt[i];
+    
+  //put the sorted data into tmp array
+  for(int i=n-1;i>=0;i--)
+  {
+    tmp[cnt[arr[i]]] = arr[i];
+    cnt[arr[i]]--;
+  }
+  
+  //put the sorted data into the original array
+  for(int i=0;i<n;i++)
+    arr[i] = tmp[i];
+}
+
+int main()
+{
+  printf("before counting_sort\n");
+  printf("arr[]=\n");
+  for(int i=0;i<10;i++)
+  {
+    printf("%d, ", arr[i]);
+  }
+  printf("\n");
+  
+  counting_sort(arr, 10);
+  
+  printf("after counting_sort\n");
+  printf("arr[]=\n");
+  for(int i=0;i<10;i++)
+  {
+    printf("%d, ", arr[i]);
+  }
+  printf("\n");
+
+  return 0;
+}
+
+[Expected result]
+before counting_sort
+arr[]=
+3, 5, 7, 2, 1, 9, 5, 3, 2, 8, 
+after counting_sort
+arr[]=
+1, 2, 2, 3, 3, 5, 5, 7, 8, 9, 
