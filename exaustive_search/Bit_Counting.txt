@@ -1,0 +1,52 @@
+Bit-Couting : using bit shift operation to find out the subsets of the given set
+
+[Reference code]
+
+#include <stdio.h>
+const int MAX_N = 11;
+
+int input[MAX_N];
+
+void subset_display(int n)
+{
+	for(int sbits = 0;sbits < (1<<n) ; sbits++)
+	{
+		for(int j=n-1;j>=0;j--)
+		{
+			if((1<<j) & sbits)
+			{
+				printf("%d ", input[j]);
+			}
+		}
+	}
+}
+
+int main()
+{
+	int TC;
+	scanf("%d", &TC);
+
+	int N;
+
+	for(int tc=1;tc<=TC;tc++)
+	{
+		scanf("%d", &N);
+		for(int i=0;i<N;i++)
+		{
+			input[i] = i+1;
+		}
+
+#if 1
+		printf("N=%d\n", N);
+		for(int i=0;i<N;i++)
+		{
+			printf("%d ", input[i]);
+		}
+		printf("\n");
+#endif	
+
+		subset_display(N);
+	}	
+
+	return 0;
+}
