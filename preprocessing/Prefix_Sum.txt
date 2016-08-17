@@ -1,0 +1,92 @@
+Prefix Sum - calculate the running totals of the input sequence
+
+* By calculating the running totals in adavance and by putting them
+  in a prefix sum array, we can directly get the sum of the row or
+  the sum of the column from the prefix sum array.
+* Examples> horizontal prefix sum, vertical prefix sum, counting sort
+
+[Reference code : horizontal/vertical prefix sum]
+#define MAX_N 101
+#define MAX_M 101
+int N;
+int M;
+
+int input[MAX_N][MAX_M];
+int prefix_sum[MAX_N][MAX_M][2];//[0] : horizontal, [1] : vertical
+
+void calc_prefix_sum()
+{
+  int c;
+
+  //horizontal prefix sum
+  for(int n=0;n<N;n++)
+  {
+    for(int m=1;m<M;m++)
+    {
+      prefix_sum[n][m][0] = prefix_sum[n][m-1][0] + input[n][m];
+    }
+  }
+  
+  //vertical prefix sum
+  for(int m=0;m<M;m++)
+  {
+    for(int n=1;n<N;n++)
+    {
+      prefix_sum[n][m][1] = prefix_sum[n-1][m][1] + input[n][m];
+    }
+  }
+}
+
+void print_prefix_sum()
+{
+  printf("horizontal_prefix_sum[]=\n");
+  for(int n=0;n<N;n++)
+  {
+    for(int m=0;m<M;m++)
+    {
+      printf("%d ", prefix_sum[n][m][0]);
+    }
+    printf("\n");
+  }
+  
+  printf("vertical_prefix_sum[]=\n");
+  for(int n=0;n<N;n++)
+  {
+    for(int m=0;m<M;m++)
+    {
+      printf("%d ", prefix_sum[n][m][1]);
+    }
+    printf("\n");
+  }
+}
+
+int main()
+{
+  scanf("%d %d", &N, &M);
+  for(int n=0;n<N;n++)
+  {
+    for(int m=0;m<M;m++)
+    {
+      scanf("%d", &input[n][m];
+      //initialize prefix sum data
+      prefix_sum[n][m][0] = prefix_sum[n][m][1] = 0;
+    }
+  }
+  
+#if 0
+  printf("N=%d, M=%d\n", N, M);
+  for(int n=0;n<N;n++)
+  {
+    for(int m=0;m<M;m++)
+    {
+      printf("%d ", input[n][m];
+    }
+    printf("\n");
+  }
+#endif
+
+  calc_prefix_sum();
+  print_prefix_sum();
+
+  return 0;
+}
