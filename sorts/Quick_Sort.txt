@@ -1,0 +1,67 @@
+Quicksort - quick sorting algorithm which sorts data with selected pivot
+
+* Time complexity - best case  : N x logN
+                    worst case : N x N
+
+[Reference code]
+
+#include <stdio.h>
+
+int arr[10] = { 3, 5, 7, 2, 1, 9, 5, 3, 2, 8 };
+
+void quick_sort(int arr[], int left, int right)
+{
+  int i = left;
+  int j = right;
+  int pivot = arr[(left+right)/2];
+  
+  while(i<=j)
+  {
+    while(arr[i]<pivot) i++; //ascending
+    while(arr[j]>pivot) j--; //ascending
+    //while(arr[i]>pivot) i++; //descending
+    //while(arr[j]<pivot) j--; //descending
+    if(i<=j)
+    {
+      int tmp = arr[j];
+      arr[j] = arr[i];
+      arr[i] = tmp;
+      i++;
+      j--;
+    }
+  }
+  
+  if(left < j)
+    quick_sort(arr, left, j);
+  if(i < right)
+    quick_sort(arr, i, right);
+}
+
+int main()
+{
+  printf("before quick_sort\n");
+  printf("arr[]=\n");
+  for(int i=0;i<10;i++)
+  {
+    printf("%d, ", arr[i]);
+  }
+  printf("\n");
+  
+  printf("after quick_sort\n");
+  printf("arr[]=\n");
+  for(int i=0;i<10;i++)
+  {
+    printf("%d, ", arr[i]);
+  }
+  printf("\n");
+
+  return 0;
+}
+
+[Expected result]
+before quick_sort
+arr[]=
+3, 5, 7, 2, 1, 9, 5, 3, 2, 8, 
+after quick_sort
+arr[]=
+1, 2, 2, 3, 3, 5, 5, 7, 8, 9, 
