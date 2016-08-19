@@ -1,0 +1,23 @@
+Repeater Permutation - Permutation permitted repeated sequencee
+
+[Reference code using DFS]
+//Usage> RP(0, 6, 6)
+//Usage> RP(0, 6, 3)
+
+int src[6] = { 1,2,3,4,5,6 };
+int sel6[];
+
+void RP(int k, int n, int m)
+{
+  if(k==m)
+  {
+    //solve();
+    return;
+  }
+  
+  for(int i=0;i<n;i++)
+  {
+    sel[k] = src[i];
+    RP(k+1, n, m);
+  }
+}
