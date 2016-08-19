@@ -1,0 +1,19 @@
+Combination with Repetition - Selecting items in a set of numbers and the redundent items can be selected
+
+[Reference code using recursive function call]
+//Usage> H(3,2) : 3H2
+
+void H(int n, int r)
+{
+  if(r==0)
+  {
+    //solve();
+    return;
+  }
+  else if(n==0)
+    return;
+  
+  sel[r-1] = src[n-1];
+  H(n, r-1);
+  H(n-1, r);
+}
