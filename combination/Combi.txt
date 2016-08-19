@@ -1,0 +1,52 @@
+Combination - Selecting items from a collection and (unlike permutation) the order of selected items doesn't masster.
+
+{Reference code using recursive function 1]
+//Usage> C(0, 0, 4, 2) : 4C2
+
+int src[4] = { 1, 2, 3, 4 };
+int sel[4];
+
+void C(int k, int c, int n, int m)
+{
+  if(k==n && c < m)
+    return;
+  else if(c == m)
+  {
+    //solve();
+    return;
+  }
+  
+  sel[c] = src[k];
+  C(k+1, c+1, n, m);
+  sel[c] = 0;
+  C(k+1, c, n, m);
+}
+
+{Reference code using recursive function 2]
+//Usage> C(3, 2) : 3C2
+
+void C(int n, int r)
+{
+  if(r==0)
+  {
+    //solve();
+    return;
+  }
+  else if(n<r)
+    return;
+  
+  sel[r-1] = src[n-1];
+  C(n-1, r_1);
+  C(n-1, r);
+}
+
+{Reference code for calculating the number of cases]
+//Usage> int cnt = ncomb(3, 2);// 3C2
+
+int ncomb(int n, int r)
+{
+  if(n==r || r==0) return 1;
+  return ncomb(n-1, r-1) + ncomb(n-1, r);
+}
+
+[Reference code using 
