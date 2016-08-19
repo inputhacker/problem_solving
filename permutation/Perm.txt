@@ -1,0 +1,49 @@
+Permutation - arranging/reordering all the members of a number set
+
+[Reference code using DFS]
+//Usage> P(0, 6, 6)
+//Usage> P(0, 6, 5)
+
+int src[6] = { 1,2,3,4,5,6 };
+int sel[6];
+int visited[6] = { 0, };
+
+void P(int k, int n, int m)
+{
+  if(k==m)
+  {
+    //solve();
+    return;
+  }
+  
+  for(int i=0;i<n;i++)
+  {
+    if(visited[i]) continue;
+    visited[i] = 1;
+    sel[k] = src[i];
+    P(k+1, n, m);
+    visited[i] = 0;
+  }
+}
+
+[Reference code using swapping]
+//Usage> RP(0, 6, 6)
+//Usage> RP(0, 6, 3)
+
+int src[6] = { 1,2,3,4,5,6 };
+int sel6[];
+
+void RP(int k, int n, int m)
+{
+  if(k==m)
+  {
+    //solve();
+    return;
+  }
+  
+  for(int i=0;i<n;i++)
+  {
+    sel[k] = src[i];
+    RP(k+1, n, m);
+  }
+}
