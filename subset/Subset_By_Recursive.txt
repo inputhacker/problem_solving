@@ -1,0 +1,18 @@
+Subset by recursive
+
+[Reference code using recursive function call]
+//Usage> subset(0, 0, 3);
+
+void subset(int k, int c, int n)
+{
+  if(k==n)
+  {
+    //solve();
+    return;
+  }
+  
+  sel[c] = src[k];
+  subset(k+1, c+1, n);
+  sel[c] = 0;
+  subset(k+1, c, n);
+}
