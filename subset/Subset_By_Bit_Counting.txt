@@ -1,0 +1,71 @@
+Subset by Bit-Counting
+
+[Reference code using bit counting]
+
+#include <stdio.h>
+
+int src[5] = { 1,2,3,4,5 };
+int sel[5];
+
+void subset(int arr[], int n)
+{
+  for(int sbits=0; sbits < (1<<n) ; sbits++)
+  {
+    for(int j=n-1;j>=0;j--)
+    {
+      sel[j] = 0;
+      if((1<<j) & sbits)
+        sel[j] = arr[j];
+    }
+    
+    for(int i=0;i<n;i++)
+    {
+      if(sel[i])
+      printf("%d ", sel[i]);
+    }
+    printf("\n");
+  }
+}
+
+int main()
+{
+  subset(src, 5);
+
+  return 0;
+}
+
+[Expected result]
+   <- empty set
+1
+2
+1 2
+3
+1 3
+2 3
+1 2 3
+4
+1 4
+2 4
+1 2 4
+3 4
+1 3 4
+2 3 4
+1 2 3 4
+5
+1 5
+2 5
+1 2 5
+3 5
+1 3 5
+2 3 5
+1 2 3 5
+4 5
+1 4 5
+2 4 5
+1 2 4 5
+3 4 5
+1 3 4 5
+2 3 4 5
+1 2 3 4 5
+
+
