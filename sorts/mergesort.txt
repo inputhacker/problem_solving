@@ -1,0 +1,42 @@
+
+const int MAX_N = 100001;
+
+int arr[MAX_N] = { 9,1,2,5,8,7,6,3,4 };
+int temp[MAX_N];
+
+void mmergesort(int left, int right)
+{
+  if(left < right)
+  {
+    int m = (left + right) / 2;
+    
+    //do mergesort recursively
+    mmergesort(left, m);
+    mmergesort(m+1, right);
+    
+    //merge sorted two parts
+    int p = left;
+    int q = m+1;
+    int idx = left;
+    
+    while(p<=m || q<=right)
+    {
+      if(q>right || (p<=m && arr[p] < arr[q]))
+        temp[idx++] = arr[p++];
+      else
+        temp[idx++] = arr[q++];
+    }
+    
+    for(int i=left ; i <= right ; i++)
+    {
+      arr[i] = temp[i];
+    }
+  }
+}
+
+int main()
+{
+  mmergesort(0, 8);
+
+  return 0;
+}
