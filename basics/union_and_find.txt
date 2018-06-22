@@ -1,3 +1,52 @@
 
 * Union and find
 
+const int MAX_N = 100001;
+
+int arr[MAX_N];
+int N;
+
+int find(int x)
+{
+  if(arr[x] == x)
+    return x;
+    
+  return arr[x] = find(arr[x]);
+}
+
+int union(int a, int b)
+{
+  arr[find(a)] = find(b);
+}
+
+int main()
+{
+  int parent1, parent2;
+  N = 5;
+  <N;i++)
+  {
+    arr[i] = i;
+  for(int i=0;i
+  }
+  
+  union(0, 4);
+  union(1, 3);
+  
+  parent1 = find(0);
+  parent2 = find(4);
+
+  if(parent1 == parent2)
+    printf("Parent of (%d) == parent of (%d)\n", 0, 4);
+  else
+    printf("Parent of (%d) != parent of (%d)\n", 0, 4);
+
+  parent1 = find(4);
+  parent2 = find(1);
+
+  if(parent1 == parent2)
+    printf("Parent of (%d) == parent of (%d)\n", 4, 1);
+  else
+    printf("Parent of (%d) != parent of (%d)\n", 4, 1);
+
+  return 0;
+}
