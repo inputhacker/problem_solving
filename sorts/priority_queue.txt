@@ -1,0 +1,80 @@
+
+* Priority queue using minimum or maximum heap
+
+//minimum heap which can pop the minimum value
+
+const int MAX_N = 100001;
+
+int heap[MAX_N];
+int heap_cnt = 0;
+
+void push(int item)
+{
+  heap[++heap_cnt] = item;
+  
+  int idx = heap_cnt;
+  while(idx>1 && heap[idx] < heap[idx / 2])
+  {
+    //swap heap[idx] with heap[idx/2]
+    int t = heap[idx];
+    heap[idx] = heap[idx / 2];
+    heap[idx / 2] = t;
+    
+  
+    //go to parent
+    idx = idx / 2;
+  }
+}
+
+int pop()
+{
+  //popping minimum value from heap
+  int val = heap[1];
+  
+  heap[1] = heap[heap_cnt--];
+  
+  int idx = 1;
+  int next;
+  while(1)
+  {
+    next = idx * 2;
+    if(next < heap_cnt && heap[next] > heap[next+1])
+      next++;
+    if(next > heap_cnt || heap[idx] < heap[next])
+      break;
+
+    //swap heap[idx] with it's smaller child
+    int t = heap[idx];
+    heap[idx] = heap[next];
+    heap[next] = t;
+
+    //go to child
+    idx = next;
+  }
+  
+  return val;
+}
+
+int main()
+{
+  int val;
+  
+  push(10);
+  push(5);
+  push(2);
+  push(4);
+  push(1);
+  
+  val = pop();
+  printf("val = %d\n", val);
+  val = pop();
+  printf("val = %d\n", val);
+  val = pop();
+  printf("val = %d\n", val);
+  val = pop();
+  printf("val = %d\n", val);
+  val = pop();
+  printf("val = %d\n", val);
+
+  return 0;
+}
