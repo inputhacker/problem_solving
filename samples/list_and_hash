@@ -1,0 +1,112 @@
+#include <stdio.h>
+
+#if 0
+/* data structure examples */
+
+record_t records[100];
+
+record[0]
+pkey[] = "790102" => hash : 7
+name[] = "Jason"
+
+record[1]
+pkey[] = "110423" => hash : 1
+name[] = "Richard"
+
+record[2]
+pkey[] = "189438" => hash : 1
+name[] = "Gerogie"
+
+record[3]
+pkey[] = "348973" => hash : 3
+name[] = "Michael"
+
+/* Each container member variable of each item of list,
+   will point the pointer of the items of records array */
+
+list_t hasht[5] = 
+	hasht[0] : item1 -> item2 -> item3 -> ...
+	hasht[1] : item1 -> item2 -> item3 -> ...
+	hasht[2] : item1 -> item2 -> item3 -> ...
+	hasht[3] : item1 -> item2 -> item3 -> ...
+	hasht[4] : item1 -> item2 -> item3 -> ...
+
+#endif
+
+#define MAX_RECORDS 100
+#define MAX_HASH_ITEMS  100
+
+typedef struct _list list_t;
+struct _list
+{
+    void *container;
+    list_t *prev;
+    list_t *next;
+};
+
+void
+list_init(list_t *list)
+{
+    list->prev = list;
+    list->next = list;
+}
+
+void
+list_add(list_t *list, list_t *item)
+{
+    item->next = list;
+    item->prev = list->prev;
+    list->prev->next = item;
+    list->prev = item;
+}
+
+typedef struct _record record_t;
+struct _record
+{
+    char pkey[100];
+    char name[100];
+    unsigned int id;
+};
+
+record_t records[MAX_RECORDS];
+list_t hasht[MAX_HASH_ITEMS];
+
+int nRecords;
+
+void
+list_del(list_t *item)
+{
+    item->next->prev = item->prev;
+    item->prev->next = item->next;
+}
+
+record_t *record_alloc()
+{
+    if (nRecords >= MAX_RECORDS)
+    {
+        printf("Max records have been allocated already.\n");
+        return NULL;
+    }
+    
+    record_t *new_record = &records[nRecords];
+
+    nRecords++;
+    return new_record;
+}
+
+void init(int N)
+{
+    nRecords = 0;
+    for(int i=0;i<MAX_HASH_ITEMS;i++)
+        list_init(&hasht[i]);
+}
+
+int main()
+{
+    init(10);
+    record_t *rcd = record_alloc();
+
+    /* TODO */
+    
+    return 0;
+}
